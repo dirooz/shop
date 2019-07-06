@@ -16,7 +16,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'cat_ename')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'parent_id')->textInput() ?>
+    <?php
+
+    $array=[0=>'انتخاب سردسته'];
+    $array2=\yii\helpers\ArrayHelper::map($category,'id', 'cat_name');
+    $array3=$array+$array2;
+    ?>
+    <?= $form->field($model, 'parent_id')->dropDownList($array3) ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>

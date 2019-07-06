@@ -46,4 +46,9 @@ class Category extends \yii\db\ActiveRecord
             'parent_id' => Yii::t('app', 'Parent ID'),
         ];
     }
+
+    public function getParent()
+    {
+        return $this->hasOne(Category::className(),['id'=>'parent_id']);
+    }
 }

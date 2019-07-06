@@ -23,14 +23,32 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'yii\grid\SerialColumn','header'=>'ردیف'],
 
-            'id',
+//            'id',
             'cat_name',
             'cat_ename',
-            'parent_id',
+            'parent_id'=>
+                [
+                    'label'=>'سر دسته',
+                    'value'=>function($model)
+                    {
+                        $c=$model->parent;
+                        if($c)
+                        {
+                            return $c->cat_name;
+                        }
+                        else
+                        {
+                            return '-';
+                        }
+                    }
+                ],
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'header'=>'عملیات',
+                'template'=>'{update}  {delete}'
+            ],
         ],
     ]); ?>
 </div>

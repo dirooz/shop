@@ -15,11 +15,18 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
-        $params=[':id'=>3,':name'=>'فریم ورک yii2'];
-        $cat=\Yii::$app->db->createCommand('SELECT * FROM category WHERE id=:id AND cat_name=:name')
-        ->bindValues($params)->queryOne();
-        var_dump($cat);
+        $params=[':id'=>2];
+        $cat=\Yii::$app->db->createCommand()->insert('category',
+            [
+                'cat_name'=>'aaaaaa',
+                'cat_ename'=>'aa',
+                'parent_id'=>0
+            ])->execute();
 
+
+        echo "<pre>";
+        var_dump($cat);
+        echo "</pre>";
 //        return $this->render('index');
     }
 }

@@ -65,13 +65,13 @@ class CategoryController extends Controller
     public function actionCreate()
     {
         $model = new Category();
-
+        $category=Category::find()->where(['parent_id'=>0])->orderBy('id DESC')->all();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['update', 'id' => $model->id]);
         }
 
         return $this->render('create', [
-            'model' => $model,
+            'model' => $model,'category'=>$category
         ]);
     }
 
@@ -85,13 +85,14 @@ class CategoryController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $category=Category::find()->where(['parent_id'=>0])->orderBy('id DESC')->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['update', 'id' => $model->id]);
         }
 
         return $this->render('update', [
-            'model' => $model,
+            'model' => $model,'category'=>$category
         ]);
     }
 
@@ -124,4 +125,5 @@ class CategoryController extends Controller
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
+
 }

@@ -6,5 +6,6 @@ return
     'Parent ID'=>'سر دسته',
     'Create Category'=>'دسته جدید',
     'Categories'=>'دسته ها',
-    'Save'=>'ذخیره'
+    'Save'=>'ذخیره',
+    'Update Category:'=>'ویرایش دسته : '
 ];
