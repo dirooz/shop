@@ -7,5 +7,6 @@ return
     'Create Category'=>'دسته جدید',
     'Categories'=>'دسته ها',
     'Save'=>'ذخیره',
-    'Update Category:'=>'ویرایش دسته : '
+    'Update'=>'ویرایش',
+    'Update Category:'=>'ویرایش دسته: '
 ];
