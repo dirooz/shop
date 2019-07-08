@@ -51,4 +51,19 @@ class Category extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Category::className(),['id'=>'parent_id']);
     }
+
+    public function getChild()
+    {
+        return $this->hasMany(Category::className(),['parent_id'=>'id']);
+    }
+
+    public function getProductCat()
+    {
+        return $this->hasOne(ProductCategory::className(),['category_id'=>'id']);
+    }
+
+    public function check_cat($id)
+    {
+        return $this->getProductCat()->where(['product_id'=>$id])->count();
+    }
 }
