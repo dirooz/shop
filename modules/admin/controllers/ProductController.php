@@ -10,7 +10,9 @@ use app\modules\admin\models\ProductSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
 use yii\web\UploadedFile;
+use yii\widgets\ActiveForm;
 
 /**
  * ProductController implements the CRUD actions for Product model.
@@ -69,41 +71,62 @@ class ProductController extends Controller
     {
         $model = new Product();
 
-        if ($model->load(Yii::$app->request->post())) {
-
-            $model->view=0;
-            $model->time=time();
-            $model->order_number=0;
-            $url=str_replace('-','',$model->title);
-            $url=str_replace('/','',$url);
-            $model->title_url=preg_replace('/\s+/','-', $url);
-
-            $model->file=UploadedFile::getInstance($model,'file');
-
-            if(!empty($model->file))
+        if(Yii::$app->request->isAjax)
+        {
+            if ($model->load(Yii::$app->request->post()))
             {
-                $url='upload/'.time().'.'.$model->file->extension;
-                if($model->file->saveAs($url))
-                {
-                    $model->img=$url;
-                }
+                Yii::$app->response->format=Response::FORMAT_JSON;
+                return ActiveForm::validate($model);
             }
+        }
+        else
+        {
+            if ($model->load(Yii::$app->request->post())) {
 
+                $model->view=0;
+                $model->time=time();
+                $model->order_number=0;
+                $url=str_replace('-','',$model->title);
+                $url=str_replace('/','',$url);
+                $model->title_url=preg_replace('/\s+/','-', $url);
 
-            if($model->save())
-            {
-                $product_cat=Yii::$app->request->post('product_cat');
-                if(is_array($product_cat))
+                $model->file=UploadedFile::getInstance($model,'file');
+
+                if(!empty($model->file))
                 {
-                    foreach ($product_cat as $key=>$value)
+                    $url='upload/'.time().'.'.$model->file->extension;
+                    if($model->file->saveAs($url))
                     {
-                        $p_cat = new ProductCategory();
-                        $p_cat->category_id=$value;
-                        $p_cat->product_id=$model->id;
-                        $p_cat->save();
+                        $model->img=$url;
                     }
                 }
-                return $this->redirect(['update', 'id' => $model->id]);
+
+
+                $model->file='';
+                if($model->save())
+                {
+                    $product_cat=Yii::$app->request->post('product_cat');
+                    if(is_array($product_cat))
+                    {
+                        foreach ($product_cat as $key=>$value)
+                        {
+                            $p_cat = new ProductCategory();
+                            $p_cat->category_id=$value;
+                            $p_cat->product_id=$model->id;
+                            $p_cat->save();
+                        }
+                    }
+                    return $this->redirect(['update', 'id' => $model->id]);
+                }
+                else
+                {
+                    $category=Category::find()->where(['parent_id'=>0])->all();
+                    return $this->render('create', [
+                        'model' => $model,
+                        'category'=>$category
+                    ]);
+                }
+
             }
             else
             {
@@ -113,16 +136,9 @@ class ProductController extends Controller
                     'category'=>$category
                 ]);
             }
-
         }
-        else
-            {
-                $category=Category::find()->where(['parent_id'=>0])->all();
-                return $this->render('create', [
-                    'model' => $model,
-                    'category'=>$category
-                ]);
-            }
+
+
     }
 
     /**
@@ -136,39 +152,61 @@ class ProductController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()))
+        if(Yii::$app->request->isAjax)
         {
-            $url=str_replace('-','',$model->title);
-            $url=str_replace('/','',$url);
-            $model->title_url=preg_replace('/\s+/','-', $url);
-            $model->file=UploadedFile::getInstance($model,'file');
-
-            if(!empty($model->file))
+            if ($model->load(Yii::$app->request->post()))
             {
-                $url='upload/'.time().'.'.$model->file->extension;
-                if($model->file->saveAs($url))
-                {
-                    $model->img=$url;
-                }
+                Yii::$app->response->format=Response::FORMAT_JSON;
+                return ActiveForm::validate($model);
             }
-
-
-            if($model->save())
+        }
+        else
+        {
+            if ($model->load(Yii::$app->request->post()))
             {
-                ProductCategory::deleteAll(['product_id'=>$model->id]);
-                $product_cat=Yii::$app->request->post('product_cat');
-                if(is_array($product_cat))
+                $url=str_replace('-','',$model->title);
+                $url=str_replace('/','',$url);
+                $model->title_url=preg_replace('/\s+/','-', $url);
+                $model->file=UploadedFile::getInstance($model,'file');
+
+                if(!empty($model->file))
                 {
-                    foreach ($product_cat as $key=>$value)
+
+                    $url='upload/'.time().'.'.$model->file->extension;
+                    if($model->file->saveAs($url))
                     {
-                        $p_cat = new ProductCategory();
-                        $p_cat->category_id=$value;
-                        $p_cat->product_id=$model->id;
-                        $p_cat->save();
+                        $model->img=$url;
                     }
                 }
 
-                return $this->redirect(['update', 'id' => $model->id]);
+
+                $model->file='';
+                if($model->save())
+                {
+                    ProductCategory::deleteAll(['product_id'=>$model->id]);
+                    $product_cat=Yii::$app->request->post('product_cat');
+                    if(is_array($product_cat))
+                    {
+                        foreach ($product_cat as $key=>$value)
+                        {
+                            $p_cat = new ProductCategory();
+                            $p_cat->category_id=$value;
+                            $p_cat->product_id=$model->id;
+                            $p_cat->save();
+                        }
+                    }
+
+                    return $this->redirect(['update', 'id' => $model->id]);
+                }
+                else
+                {
+                    $category=Category::find()->where(['parent_id'=>0])->all();
+                    return $this->render('update', [
+                        'model' => $model,
+                        'category'=>$category
+                    ]);
+                }
+
             }
             else
             {
@@ -178,15 +216,6 @@ class ProductController extends Controller
                     'category'=>$category
                 ]);
             }
-
-        }
-        else
-        {
-            $category=Category::find()->where(['parent_id'=>0])->all();
-            return $this->render('update', [
-                'model' => $model,
-                'category'=>$category
-            ]);
         }
 
 

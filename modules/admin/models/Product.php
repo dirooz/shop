@@ -46,7 +46,8 @@ class Product extends \yii\db\ActiveRecord
             [['title', 'title_url'], 'string', 'max' => 255],
             [['img'], 'string', 'max' => 1000],
             [['download_times', 'download_size'], 'string', 'max' => 100],
-            [['file'],'file']
+            [['file'],'file','extensions'=>'png,jpg'],
+            ['title','check_title']
         ];
     }
 
@@ -73,5 +74,24 @@ class Product extends \yii\db\ActiveRecord
             'download_size' => 'حجم فایل ها',
             'file' => 'تصویر شاخص',
         ];
+    }
+
+    public function check_title($attribute,$params,$validator)
+    {
+
+        if($this->isNewRecord)
+        {
+            if(static::findOne(['title'=>$this->title]))
+            {
+                return $this->addError($attribute,'عنوان محصول نمی تواند تکراری باشد.');
+            }
+        }
+        else
+        {
+            if(static::find()->where(['title'=>$this->title])->andWhere(['!=','id',$this->id])->one())
+            {
+                return $this->addError($attribute,'عنوان مکحصول نمی تواند تکراری باشد.');
+            }
+        }
     }
 }
