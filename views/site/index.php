@@ -4,50 +4,77 @@
 
 $this->title = 'My Yii Application';
 ?>
-<div class="site-index">
 
-    <div class="jumbotron">
-        <h1>Congratulations!</h1>
 
-        <p class="lead">You have successfully created your Yii-powered application.</p>
+<div class="container">
 
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
-    </div>
+    <br>  <p class="text-center">More bootstrap 4 components on <a href="http://bootstrap-ecommerce.com/"> Bootstrap-ecommerce.com</a></p>
+    <hr>
 
-    <div class="body-content">
 
-        <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
 
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
+    <div class="row">
+        <div class="col-md-4">
+            <figure class="card card-product">
+                <div class="img-wrap"><img src="https://s9.postimg.org/tupxkvfj3/image.jpg"></div>
+                <figcaption class="info-wrap">
+                    <h4 class="title">Another name of item</h4>
+                    <p class="desc">Some small description goes here</p>
+                    <div class="rating-wrap">
+                        <div class="label-rating">132 reviews</div>
+                        <div class="label-rating">154 orders </div>
+                    </div> <!-- rating-wrap.// -->
+                </figcaption>
+                <div class="bottom-wrap">
+                    <a href="" class="btn btn-sm btn-primary float-right">Order Now</a>
+                    <div class="price-wrap h5">
+                        <span class="price-new">$1280</span> <del class="price-old">$1980</del>
+                    </div> <!-- price-wrap.// -->
+                </div> <!-- bottom-wrap.// -->
+            </figure>
+        </div> <!-- col // -->
+        <div class="col-md-4">
+            <figure class="card card-product">
+                <div class="img-wrap"><img src="https://s9.postimg.org/ojb106167/image.jpg"> </div>
+                <figcaption class="info-wrap">
+                    <h4 class="title">Good product</h4>
+                    <p class="desc">Some small description goes here</p>
+                    <div class="rating-wrap">
+                        <div class="label-rating">132 reviews</div>
+                        <div class="label-rating">154 orders </div>
+                    </div> <!-- rating-wrap.// -->
+                </figcaption>
+                <div class="bottom-wrap">
+                    <a href="" class="btn btn-sm btn-primary float-right">Order Now</a>
+                    <div class="price-wrap h5">
+                        <span class="price-new">$1280</span> <del class="price-old">$1980</del>
+                    </div> <!-- price-wrap.// -->
+                </div> <!-- bottom-wrap.// -->
+            </figure>
+        </div> <!-- col // -->
+        <div class="col-md-4">
+            <figure class="card card-product">
+                <div class="img-wrap"><img src="https://s9.postimg.org/4ooze1tof/image.jpg"></div>
+                <figcaption class="info-wrap">
+                    <h4 class="title">Product name goes here</h4>
+                    <p class="desc">Some small description goes here</p>
+                    <div class="rating-wrap">
+                        <div class="label-rating">132 reviews</div>
+                        <div class="label-rating">154 orders </div>
+                    </div> <!-- rating-wrap.// -->
+                </figcaption>
+                <div class="bottom-wrap">
+                    <a href="" class="btn btn-sm btn-primary float-right">Order Now</a>
+                    <div class="price-wrap h5">
+                        <span class="price-new">$1280</span> <del class="price-old">$1980</del>
+                    </div> <!-- price-wrap.// -->
+                </div> <!-- bottom-wrap.// -->
+            </figure>
+        </div> <!-- col // -->
+    </div> <!-- row.// -->
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
 
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
-            </div>
-        </div>
-
-    </div>
 </div>
+<!--container.//-->

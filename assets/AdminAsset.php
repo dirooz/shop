@@ -22,7 +22,7 @@ class AdminAsset extends AssetBundle
     public $css = [
         'css/bootstrap-rtl.min.css',
         'css/admin.css',
-        'bootstrap.min.css',
+//        'css/bootstrap.min.css',
         'css/font-awesome.min.css',
 
     ];
