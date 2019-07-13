@@ -52,6 +52,12 @@ $config = [
 //            ],
         ],
 
+        'session'=>
+        [
+            'class'=>'yii\web\DBSession',
+            'sessionTable'=>'session'
+        ],
+
     ],
     'params' => $params,
 

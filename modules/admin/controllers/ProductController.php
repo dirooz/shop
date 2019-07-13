@@ -8,6 +8,7 @@ use Yii;
 use app\modules\admin\models\Product;
 use app\modules\admin\models\ProductSearch;
 use yii\web\Controller;
+use yii\web\Cookie;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\Response;
@@ -249,5 +250,31 @@ class ProductController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionTest()
+    {
+        $session=Yii::$app->session;
+
+//        $session->set('test', 'new session');
+
+//        $session->remove('test');
+//        echo $session->get('test','not found');
+
+//        var_dump($session->has('test'));
+
+//        $session->setFlash('flash_test', 'test1');
+
+//        var_dump($session->getFlash('flash_test'));
+
+        $cookies=Yii::$app->response->cookies;
+//        $cookies->add(new Cookie([
+//            'name'=>'new',
+//            'value'=>'cookie'
+//                ]));
+
+        $cookies->remove('new');
+        $c=Yii::$app->request->getCookies()->getValue('new');
+        var_dump($c);
     }
 }

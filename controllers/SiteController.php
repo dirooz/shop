@@ -2,7 +2,9 @@
 
 namespace app\controllers;
 
+use app\modules\admin\models\Product;
 use Yii;
+use yii\data\Pagination;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
@@ -61,7 +63,13 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $product= Product::find()->where(['status'=>1]);
+
+        $pages=new Pagination(['totalCount'=>$product->count()]);
+        $pages->pageSize=1;
+        $pages->pageSizeParam=false;
+        $model=$product->offset($pages->offset)->limit($pages->limit)->orderBy('id DESC')->all();
+        return $this->render('index',['product'=>$model,'pages'=>$pages]);
     }
 
     /**
