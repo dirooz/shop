@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Users;
 use app\modules\admin\models\Product;
 use Yii;
 use yii\data\Pagination;
@@ -11,6 +12,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use yii\widgets\ActiveForm;
 
 class SiteController extends Controller
 {
@@ -132,5 +134,41 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    public function actionShow($slug)
+    {
+        echo $slug;
+    }
+
+    public function actionRegister()
+    {
+        $model = new Users();
+
+        if(Yii::$app->request->isAjax)
+        {
+            if ($model->load(Yii::$app->request->post()))
+            {
+                Yii::$app->response->format=Response::FORMAT_JSON;
+                return ActiveForm::validate($model);
+            }
+        }
+        else
+        {
+            if ($model->load(Yii::$app->request->post())) {
+                if ($model->validate()) {
+                    $model->create_user();
+                }
+                else
+                {
+//                    var_dump($model->errors);
+                }
+            }
+
+            return $this->render('register', [
+                'model' => $model,
+            ]);
+        }
+
     }
 }

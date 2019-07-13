@@ -48,8 +48,11 @@ $config = [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-//            'rules' => [
-//            ],
+            'rules' =>
+            [
+                'page/<page:\d+>'=>'site/index',
+                '<slug>'=>'site/show'
+            ],
         ],
 
         'session'=>
