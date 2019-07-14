@@ -157,7 +157,22 @@ class SiteController extends Controller
         {
             if ($model->load(Yii::$app->request->post())) {
                 if ($model->validate()) {
-                    $model->create_user();
+
+                    $session=Yii::$app->session;
+                    if($model->create_user())
+                    {
+                        $session->setFlash('message_register', 'ثبت نام با موفقیت انجام شد.');
+                        $model=new Users();
+                    }
+                    else
+                    {
+                        $session->setFlash('message_register', 'در ثبت اطلاعات، خطایی رخ داده - لطفا مجددا تلاش نمایید.');
+                    }
+
+                    return $this->render('register', [
+                        'model' => $model,
+                    ]);
+
                 }
                 else
                 {

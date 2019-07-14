@@ -6,9 +6,17 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model app\models\Users */
 /* @var $form ActiveForm */
+
+$this->title='ثبت نام در سایت';
 ?>
 <div class="site-register">
 
+    <div style="color: red;padding-bottom: 20px;">
+        <?php
+        $session=Yii::$app->session;
+        echo $session->getFlash('message_register');
+        ?>
+    </div>
     <?php $form = ActiveForm::begin(['enableAjaxValidation'=>true]); ?>
 
     <?= $form->field($model, 'fname') ?>
@@ -19,7 +27,7 @@ use yii\widgets\ActiveForm;
 
 
     <div class="form-group">
-        <?= Html::submitButton('Submit', ['class' => 'btn btn-primary']) ?>
+        <?= Html::submitButton('ثبت نام', ['class' => 'btn btn-primary']) ?>
     </div>
     <?php ActiveForm::end(); ?>
 

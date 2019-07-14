@@ -41,7 +41,8 @@ class Users extends \yii\db\ActiveRecord
             [['auth_key'], 'string', 'max' => 32],
             [['email'], 'email'],
             [['password1', 'password2'], 'string', 'min'=>6],
-            ['password1', 'check_password']
+            ['password1', 'check_password'],
+            [['email'], 'unique']
         ];
     }
 
@@ -81,6 +82,13 @@ class Users extends \yii\db\ActiveRecord
         $this->password_hash=Yii::$app->security->generatePasswordHash($this->password1);
         $this->role='user';
         $this->auth_key=Yii::$app->security->generateRandomString();
-        $this->save();
+        if($this->save())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
