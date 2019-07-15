@@ -16,6 +16,7 @@ class LoginForm extends Model
     public $username;
     public $password;
     public $rememberMe = true;
+    public $captcha;
 
     private $_user = false;
 
@@ -27,11 +28,12 @@ class LoginForm extends Model
     {
         return [
             // username and password are both required
-            [['username', 'password'], 'required'],
+            [['username', 'password', 'captcha'], 'required'],
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
             ['password', 'validatePassword'],
+            ['captcha','captcha']
         ];
     }
 
@@ -48,7 +50,7 @@ class LoginForm extends Model
             $user = $this->getUser();
 
             if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Incorrect username or password.');
+                $this->addError($attribute, 'ایمیل یا کلمه ی عبور اشتباه می باشد.');
             }
         }
     }
@@ -77,5 +79,17 @@ class LoginForm extends Model
         }
 
         return $this->_user;
+    }
+
+    public function attributeLabels()
+    {
+        return
+        [
+            'username'=> 'ایمیل',
+            'password'=> 'کلمه ی عبور',
+            'rememberMe'=> 'مرا به خاطر بسپار',
+            'captcha'=> 'تصویر امنیتی'
+
+        ];
     }
 }
