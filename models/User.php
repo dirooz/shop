@@ -34,10 +34,17 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
      * @param string $username
      * @return static|null
      */
-    public static function findByUsername($username)
+    public static function findByUsername($username,$role)
     {
+        if($role=='admin')
+        {
+            return static::findOne(['username'=>$username,'role'=>'admin']);
+        }
+        else
+        {
+            return static::findOne(['email'=>$username,'role'=>'user']);
+        }
 
-        return static::findOne(['email'=>$username]);
     }
 
     /**

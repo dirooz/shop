@@ -51,7 +51,9 @@ $config = [
             'rules' =>
             [
                 'page/<page:\d+>'=>'site/index',
-                '<slug>'=>'site/show'
+                'admin'=>'/admin/default/index',
+                '<slug>'=>'site/show',
+                'admin/login'=>'admin/default/login'
             ],
         ],
 
