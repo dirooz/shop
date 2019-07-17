@@ -57,6 +57,11 @@ $config = [
             ],
         ],
 
+        'authManager'=>
+        [
+            'class'=>'yii\rbac\DbManager',
+        ],
+
         'session'=>
         [
             'class'=>'yii\web\DBSession',

@@ -7,6 +7,7 @@ use app\modules\admin\models\ProductCategory;
 use Yii;
 use app\modules\admin\models\Product;
 use app\modules\admin\models\ProductSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Cookie;
 use yii\web\NotFoundHttpException;
@@ -26,6 +27,18 @@ class ProductController extends Controller
     public function behaviors()
     {
         return [
+            'access'=>
+            [
+                'class'=>AccessControl::className(),
+                'rules'=>
+                [
+                    [
+                        'allow'=>true,
+                        'actions'=>['index', 'create', 'update', 'delete'],
+                        'roles'=>['updatePost']
+                    ]
+                ]
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

@@ -186,4 +186,39 @@ class SiteController extends Controller
         }
 
     }
+
+    public function actionTest()
+    {
+        $auth= Yii::$app->authManager;
+
+        $createPost=$auth->createPermission('createPost');
+        $createPost->description='create a post';
+        $auth->add($createPost);
+
+        $updatePost=$auth->createPermission('updatePost');
+        $updatePost->description='update a post';
+        $auth->add($updatePost);
+
+        $author=$auth->createRole('author');
+        $auth->add($author);
+        $auth->addChild($author,$createPost);
+
+        $admin=$auth->createRole('admin');
+        $auth->add($admin);
+        $auth->addChild($admin,$author);
+        $auth->addChild($admin,$updatePost);
+
+        $auth->assign($author,7);
+        $auth->assign($admin,8);
+    }
+
+//    public function actionRole()
+//    {
+//        var_dump( Yii::$app->user->can('createPost'));
+//    }
+
+    public function actionRequestPasswordReset()
+    {
+        echo 'ok';
+    }
 }

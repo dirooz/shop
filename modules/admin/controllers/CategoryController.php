@@ -5,6 +5,7 @@ namespace app\modules\admin\controllers;
 use Yii;
 use app\modules\admin\models\Category;
 use app\modules\admin\models\CategorySearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -20,6 +21,18 @@ class CategoryController extends Controller
     public function behaviors()
     {
         return [
+            'access'=>
+                [
+                    'class'=>AccessControl::className(),
+                    'rules'=>
+                        [
+                            [
+                                'allow'=>true,
+                                'actions'=>['index', 'create', 'update', 'delete'],
+                                'roles'=>['updatePost']
+                            ]
+                        ]
+                ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
