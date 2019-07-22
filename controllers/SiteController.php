@@ -12,6 +12,7 @@ use yii\data\Pagination;
 use yii\filters\AccessControl;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
@@ -31,9 +32,14 @@ class SiteController extends Controller
                 'only' => ['logout'],
                 'rules' => [
                     [
-                        'actions' => ['logout'],
+                        'actions' => ['logout','request-password-reset','reset-password'],
                         'allow' => true,
                         'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['logout','request-password-reset','reset-password'],
+                        'allow' => true,
+                        'roles' => ['?'],
                     ],
                 ],
             ],
@@ -142,7 +148,16 @@ class SiteController extends Controller
 
     public function actionShow($slug)
     {
-        echo $slug;
+        $product=Product::findOne(['title_url'=>$slug]);
+
+        if($product)
+        {
+            return $this->render('show', ['product'=>$product]);
+        }
+        else
+        {
+            throw new NotFoundHttpException('محصولی یافت نشد.','404');
+        }
     }
 
     public function actionRegister()

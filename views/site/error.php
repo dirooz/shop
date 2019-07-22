@@ -18,6 +18,7 @@ $this->title = $name;
     </div>
 
     <p>
+        محتوای خطا
         The above error occurred while the Web server was processing your request.
     </p>
     <p>
